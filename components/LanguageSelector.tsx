@@ -109,14 +109,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
   },
   dropdown: {
     backgroundColor: '#ffffff',
-    borderRadius: 16,
+    borderRadius: 0,
     padding: 20,
     width: '100%',
-    maxWidth: 280,
+    height: '100%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

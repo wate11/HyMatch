@@ -177,17 +177,7 @@ export const mockJobs: Job[] = [
     workDays: ['Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     highlights: ['Learn sushi making', 'Fresh ingredients', 'Traditional techniques'],
   },
-  {
-    id: '17',
-    title: '【Warehouse】E-commerce Fulfillment',
-    type: 'warehouse',
-    salary: '¥1,300–¥1,850',
-    japaneseLevel: 'N4',
-    commuteTime: '35 minutes',
-    location: 'Ariake, Tokyo',
-    workDays: ['Mon', 'Tue', 'Thu', 'Fri', 'Sat'],
-    highlights: ['Modern facility', 'Scanning technology', 'Team bonuses'],
-  },
+
   {
     id: '18',
     title: '【Delivery】Grocery Delivery Driver',

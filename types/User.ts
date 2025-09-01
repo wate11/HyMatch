@@ -13,14 +13,29 @@ export interface User {
   postalCode: string;
   prefecture: string;
   city: string;
+  district1: string;
+  district2?: string;
+  buildingName?: string;
   address: string;
   email: string;
   phone: string;
   visaType: string;
+  residencePhoto?: string;
+  residenceChangePlans?: string;
+  certificatePhoto?: string;
   visaStatusImage?: string;
   japaneseLevel: 'N1' | 'N2' | 'N3' | 'N4' | 'N5';
   preferredDays: string[];
   preferredJobTypes: string[];
+  currentJob?: string;
+  desiredJob?: string;
   workExperience: string;
   isProfileComplete: boolean;
+  // New fields for enhanced profile
+  messagePreference?: string;
+  starRating?: string;
+  documentType1?: string;
+  documentType2?: string;
+  startTime?: string;
+  endTime?: string;
 }

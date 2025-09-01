@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
-import { Heart, X, Check, User, Settings } from 'lucide-react-native';
+import { Heart, Trash2, CheckCircle } from 'lucide-react-native';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { colors } from '@/types/colors';
 
 export default function TabLayout() {
   const { t } = useLanguage();
@@ -10,7 +11,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#ffffff',
+          backgroundColor: '#c79d6b',
           borderTopWidth: 0,
           paddingBottom: 8,
           paddingTop: 8,
@@ -28,15 +29,15 @@ export default function TabLayout() {
           fontFamily: 'Inter-SemiBold',
           fontSize: 12,
         },
-        tabBarActiveTintColor: '#10B981',
-        tabBarInactiveTintColor: '#9ca3af',
+        tabBarActiveTintColor: '#000000',
+        tabBarInactiveTintColor: '#000000',
       }}>
       <Tabs.Screen
         name="refused"
         options={{
           title: t('tabs.refused'),
           tabBarIcon: ({ size, color }) => (
-            <X size={size} color={color} />
+            <Trash2 size={size} color={color} />
           ),
         }}
       />
@@ -47,6 +48,8 @@ export default function TabLayout() {
           tabBarIcon: ({ size, color }) => (
             <Heart size={size} color={color} />
           ),
+          // Hide tab bar on Home to let the unified footer occupy the bottom
+          tabBarStyle: { display: 'none' },
         }}
       />
       <Tabs.Screen
@@ -54,7 +57,7 @@ export default function TabLayout() {
         options={{
           title: t('tabs.chosen'),
           tabBarIcon: ({ size, color }) => (
-            <Check size={size} color={color} />
+            <CheckCircle size={size} color={color} />
           ),
         }}
       />

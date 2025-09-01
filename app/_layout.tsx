@@ -14,6 +14,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { UserProvider } from '@/contexts/UserContext';
 import { JobProvider } from '@/contexts/JobContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { SwipeControllerProvider } from '@/contexts/SwipeControllerContext';
 import React, { createContext, useContext, useState } from 'react';
 
 SplashScreen.preventAutoHideAsync();
@@ -58,16 +59,21 @@ export default function RootLayout() {
         <LanguageProvider>
           <UserProvider>
             <JobProvider>
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="(tabs)" />
-                <Stack.Screen name="profile" options={{ presentation: 'modal' }} />
-                <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
-                <Stack.Screen name="profile/edit" options={{ presentation: 'modal' }} />
-                <Stack.Screen name="contact" options={{ presentation: 'modal' }} />
-                <Stack.Screen name="filter" options={{ presentation: 'modal' }} />
-                <Stack.Screen name="+not-found" />
-              </Stack>
-              <StatusBar style="auto" />
+              <SwipeControllerProvider>
+                <Stack screenOptions={{ headerShown: false }}>
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen name="profile" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="profile-summary" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="profile/edit" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="contact" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="filter" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="applications" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="offers" options={{ presentation: 'modal' }} />
+                  <Stack.Screen name="+not-found" />
+                </Stack>
+                <StatusBar style="auto" />
+              </SwipeControllerProvider>
             </JobProvider>
           </UserProvider>
         </LanguageProvider>

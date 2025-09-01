@@ -1,46 +1,51 @@
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import { SwipeCards } from '@/components/SwipeCards';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Menu, Filter } from 'lucide-react-native';
+import { Menu } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import { Icon } from '@/components/IconSet';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ProfileIncompleteModal } from '@/components/ProfileIncompleteModal';
+import { CustomFooter } from '@/components/CustomFooter';
 import { HamburgerMenu } from '@/components/HamburgerMenu';
+import { ComprehensiveFilterModal } from '@/components/ComprehensiveFilterModal';
 import { useTheme } from '../_layout';
 
 export default function HomeScreen() {
   const router = useRouter();
   const { t } = useLanguage();
   const { theme } = useTheme();
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
 
   return (
     <SafeAreaView style={[styles.container, theme === 'dark' && { backgroundColor: '#18181b' }]}>
-      <LinearGradient
-        colors={theme === 'dark' ? ['#222', '#111'] : ['#10B981', '#059669', '#047857']}
-        style={styles.header}
-      >
+      <View style={styles.header}>
         <View style={styles.headerContent}>
           <HamburgerMenu />
           
           <View style={styles.titleContainer}>
             <Text style={[styles.title, theme === 'dark' && { color: '#fff' }]}>{t('app.title')}</Text>
-            <Text style={[styles.subtitle, theme === 'dark' && { color: '#d1fae5' }]}>{t('app.subtitle')}</Text>
           </View>
           
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => router.push('/filter')}
+            onPress={() => setIsFilterModalVisible(true)}
           >
-            <Filter size={24} color="#ffffff" />
+            <Icon name="filter1_icon" size={24} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
-      </LinearGradient>
+      </View>
       
       <View style={styles.content}>
         <SwipeCards />
       </View>
       
-      <ProfileIncompleteModal />
+      <CustomFooter />
+
+      {/* Comprehensive Filter Modal */}
+      <ComprehensiveFilterModal
+        visible={isFilterModalVisible}
+        onClose={() => setIsFilterModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -48,12 +53,13 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0fdf4',
+    backgroundColor: '#f9efe7',
   },
   header: {
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 30,
+    backgroundColor: '#ffffff',
   },
   headerContent: {
     flexDirection: 'row',
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#c29c79',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -75,14 +81,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontFamily: 'Inter-Bold',
-    color: '#ffffff',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontFamily: 'Inter-Medium',
-    color: '#d1fae5',
-    textAlign: 'center',
+    color: '#000000',
   },
   content: {
     flex: 1,

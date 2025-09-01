@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Linking, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { X, Phone, Mail, MessageCircle } from 'lucide-react-native';
@@ -20,8 +20,8 @@ export default function ContactModal() {
   };
 
   const handleChat = () => {
-    // Open chat support
-    console.log('Open chat support');
+    // Open chat support - placeholder for future implementation
+    Alert.alert('Chat Support', 'Chat support will be available soon!');
   };
 
   return (
@@ -95,7 +95,7 @@ export default function ContactModal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0fdf4',
+    backgroundColor: '#f9efe7',
   },
   header: {
     paddingHorizontal: 20,

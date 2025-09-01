@@ -13,6 +13,8 @@ interface JobContextType {
   setFilters: (filters: JobFilters) => void;
   sortBy: SortOption;
   setSortBy: (sort: SortOption) => void;
+  removeApplication: (jobId: string) => void;
+  clearApplications: () => void;
 }
 
 export interface JobFilters {
@@ -48,6 +50,12 @@ export function JobProvider({ children }: { children: ReactNode }) {
     setApplications(prev => [...prev, newApplication]);
   };
 
+  const removeApplication = (jobId: string) => {
+    setApplications(prev => prev.filter(app => app.jobId !== jobId));
+  };
+
+  const clearApplications = () => setApplications([]);
+
   const getChosenJobs = () => {
     const chosenJobIds = applications
       .filter(app => app.status === 'chosen')
@@ -73,6 +81,8 @@ export function JobProvider({ children }: { children: ReactNode }) {
       setFilters,
       sortBy,
       setSortBy,
+      removeApplication,
+      clearApplications,
     }}>
       {children}
     </JobContext.Provider>

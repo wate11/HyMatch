@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { Check, X } from 'lucide-react-native';
+import { colors } from '@/types/colors';
 
 interface SwipeIndicatorProps {
   type: 'left' | 'right';
@@ -11,50 +11,46 @@ interface SwipeIndicatorProps {
 export function SwipeIndicator({ type, style }: SwipeIndicatorProps) {
   const isRight = type === 'right';
   
+  const ringColor = isRight ? colors.success : colors.error;
+
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        isRight ? styles.rightContainer : styles.leftContainer,
-        style,
-      ]}
-    >
-      {isRight ? (
-        <Check size={24} color="#ffffff" strokeWidth={3} />
-      ) : (
-        <X size={24} color="#ffffff" strokeWidth={3} />
-      )}
-      <Text style={[styles.text, isRight ? styles.rightText : styles.leftText]}>
-        {isRight ? 'CHOOSE' : 'PASS'}
-      </Text>
+    <Animated.View style={[styles.wrapper, style]}>
+      <View style={[styles.ring, { borderColor: ringColor }]}
+      >
+        <Text style={[styles.stampText, { color: ringColor }]}>
+          {isRight ? 'Choose' : 'Refusal'}
+        </Text>
+      </View>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    flexDirection: 'row',
+  wrapper: {
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  rightContainer: {
-    backgroundColor: '#10B981',
+  ring: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderWidth: 8,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
   },
-  leftContainer: {
-    backgroundColor: '#EF4444',
-  },
-  text: {
-    fontFamily: 'Inter-Bold',
-    fontSize: 14,
-    color: '#ffffff',
-  },
-  rightText: {
-    color: '#ffffff',
-  },
-  leftText: {
-    color: '#ffffff',
+  stampText: {
+    fontFamily: 'Inter-Black',
+    fontSize: 26,
+    textAlign: 'center',
+    letterSpacing: 0.5,
+    textShadowColor: 'rgba(0,0,0,0.05)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
 });
