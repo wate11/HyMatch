@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Icon } from './IconSet';
 
 interface SalaryTypeModalProps {
@@ -77,29 +77,22 @@ export function SalaryTypeModal({ visible, onClose, onSelect }: SalaryTypeModalP
                 style={styles.optionRow}
                 onPress={() => handleSelect(option.key)}
               >
-                <View style={styles.radioButton}>
+                <View style={[styles.radioButton, selectedSalaryType === option.key && styles.radioButtonSelected]}>
                   {selectedSalaryType === option.key && <View style={styles.radioButtonInner} />}
                 </View>
                 <View style={styles.optionIcon}>
-                  <Icon name="pul" size={20} />
+                  <Image 
+                    source={require('@/assets/images/yen.png')} 
+                    style={{ width: 20, height: 20 }}
+                    resizeMode="contain"
+                  />
                 </View>
                 <Text style={styles.optionText}>{option.label}</Text>
-                <TextInput
-                  style={styles.inputField}
-                  placeholder="0"
-                  keyboardType="numeric"
-                  value={salaryAmounts[option.key as keyof typeof salaryAmounts]}
-                  onChangeText={(text) => setSalaryAmounts(prev => ({
-                    ...prev,
-                    [option.key]: text
-                  }))}
-                />
-                <Text style={styles.currencyText}>~円</Text>
                 
-                {/* Reorder arrows */}
-                <View style={styles.reorderArrows}>
-                  <Text style={styles.arrowUp}>▲</Text>
-                  <Text style={styles.arrowDown}>▼</Text>
+                {/* Sort icons */}
+                <View style={styles.sortIcons}>
+                  <Icon name="chevron-up" size={12} color="#000000" />
+                  <Icon name="chevron-down" size={12} color="#000000" />
                 </View>
               </TouchableOpacity>
             ))}
@@ -210,17 +203,26 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: '#CCCCCC',
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
   },
+  radioButtonSelected: {
+    borderColor: '#CCCCCC',
+    backgroundColor: '#FFFFFF',
+  },
   radioButtonInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#000000',
+    backgroundColor: '#007AFF',
+  },
+  sortIcons: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginLeft: 'auto',
   },
   optionIcon: {
     width: 32,
@@ -239,36 +241,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginRight: 16,
     minWidth: 60,
-  },
-  inputField: {
-    width: 80,
-    height: 36,
-    borderWidth: 1,
-    borderColor: '#000000',
-    borderRadius: 4,
-    paddingHorizontal: 8,
-    textAlign: 'center',
-    marginRight: 8,
-  },
-  currencyText: {
-    fontSize: 14,
-    color: '#000000',
-    fontWeight: '500',
-    marginRight: 16,
-  },
-  reorderArrows: {
-    alignItems: 'center',
-    marginLeft: 'auto',
-  },
-  arrowUp: {
-    fontSize: 12,
-    color: '#000000',
-    lineHeight: 14,
-  },
-  arrowDown: {
-    fontSize: 12,
-    color: '#000000',
-    lineHeight: 14,
   },
   footer: {
     flexDirection: 'row',

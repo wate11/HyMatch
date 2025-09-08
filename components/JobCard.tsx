@@ -6,7 +6,6 @@ import { Icon, IconSets } from './IconSet';
 import { colors } from '@/types/colors';
 import { JobCategoriesModal } from './JobCategoriesModal';
 import { JapaneseLevelModal } from './JapaneseLevelModal';
-import { LevelInfoModal } from './LevelInfoModal';
 import { CommuteModal } from './CommuteModal';
 import { WorkingHoursModal } from './WorkingHoursModal';
 import { AppealPointsModal } from './AppealPointsModal';
@@ -21,7 +20,6 @@ type DetailType = 'salary' | 'japanese' | 'commute' | 'location' | 'workDays' | 
 export function JobCard({ job, onDetailPress }: JobCardProps) {
   const [isJobCategoriesVisible, setIsJobCategoriesVisible] = useState(false);
   const [isJapaneseLevelVisible, setIsJapaneseLevelVisible] = useState(false);
-  const [isLevelInfoVisible, setIsLevelInfoVisible] = useState(false);
   const [isCommuteVisible, setIsCommuteVisible] = useState(false);
   const [isWorkingHoursVisible, setIsWorkingHoursVisible] = useState(false);
   const [isAppealPointsVisible, setIsAppealPointsVisible] = useState(false);
@@ -46,9 +44,6 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
     setIsJapaneseLevelVisible(true);
   };
 
-  const handleLevelPress = () => {
-    setIsLevelInfoVisible(true);
-  };
 
   const handleHousePress = () => {
     setIsCommuteVisible(true);
@@ -71,7 +66,7 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
                 resizeMode="contain"
               />
             </View>
-            <Text style={styles.companyName}>日本マニュファクチャリング</Text>
+            <Text style={styles.companyName}>{job.company}</Text>
           </View>
 
           {/* Horizontal separator line after store */}
@@ -116,8 +111,8 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
         {/* Job details with icons */}
         <View style={styles.detailsContainer}>
           {/* Salary */}
-          <TouchableOpacity style={styles.detailRow} onPress={() => handleDetailPress('salary')} activeOpacity={0.7}>
-            <View style={styles.yenIcon}>
+          <View style={styles.detailRow}>
+            <TouchableOpacity style={styles.yenIcon} onPress={() => handleDetailPress('salary')} activeOpacity={0.7}>
               <Image 
                 source={require('@/assets/images/yen.png')} 
                 style={{ width: 28, height: 28 }}
@@ -130,7 +125,7 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
                   resizeMode="contain"
                 />
               </View>
-            </View>
+            </TouchableOpacity>
             <Text style={styles.detailValue}>{job.salary}</Text>
             <TouchableOpacity style={styles.commentIcon} onPress={handleCommentPress} activeOpacity={0.7}>
               <Image 
@@ -147,21 +142,25 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
               </View>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.levelIcon} onPress={handleLevelPress} activeOpacity={0.7}>
-              <Text style={styles.levelText}>N4</Text>
+            <View style={styles.levelIcon}>
+              <Text style={styles.levelText}>{job.japaneseLevel}</Text>
               <View style={styles.levelDots}>
-                {[1, 2, 3, 4, 5].map((level) => (
-                  <View 
-                    key={level} 
-                    style={[
-                      styles.levelDot, 
-                      level === 4 ? styles.levelDotActive : null
-                    ]} 
-                  />
-                ))}
+                {[1, 2, 3, 4, 5].map((level) => {
+                  const currentLevel = parseInt(job.japaneseLevel.replace('N', ''));
+                  const reversedLevel = 6 - currentLevel; // N5=1, N4=2, N3=3, N2=4, N1=5
+                  return (
+                    <View 
+                      key={level} 
+                      style={[
+                        styles.levelDot, 
+                        level === reversedLevel ? styles.levelDotActive : null
+                      ]} 
+                    />
+                  );
+                })}
               </View>
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Horizontal separator line after yen */}
           <View style={styles.separatorLine} />
@@ -295,12 +294,6 @@ export function JobCard({ job, onDetailPress }: JobCardProps) {
         onClose={() => setIsJapaneseLevelVisible(false)}
       />
       
-      {/* Level Info Modal */}
-      <LevelInfoModal 
-        isVisible={isLevelInfoVisible}
-        onClose={() => setIsLevelInfoVisible(false)}
-        level={4}
-      />
 
       {/* Commute Modal */}
       <CommuteModal 

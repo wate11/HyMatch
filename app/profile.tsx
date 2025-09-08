@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Alert, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useUser } from '@/contexts/UserContext';
@@ -68,6 +68,44 @@ export default function ProfileScreen() {
 
   const [profileImage, setProfileImage] = useState<string | null>(user?.profileImage || null);
 
+  // Reset form when component mounts (when opening profile)
+  useEffect(() => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      age: '18',
+      nationality: 'Japan',
+      gender: 'other',
+      nearestStationHome: '',
+      walkTimeHome: '5',
+      nearestStationSchool: '',
+      walkTimeSchool: '',
+      postalCode: '0000000',
+      prefecture: '',
+      district1: '',
+      district2: '',
+      address: '',
+      phone: '',
+      email: '',
+      visaType: '',
+      japaneseLevel: 'N5',
+      preferredDays: [],
+      currentJob: '',
+      desiredJob: '',
+      workExperience: '',
+      messagePreference: '',
+      starRating: '',
+      documentType1: '',
+      documentType2: '',
+      startTime: '',
+      endTime: '',
+      validityPeriod: '',
+      qualificationDate: '',
+      description: '',
+    });
+    setProfileImage(null);
+  }, []);
+
   // Data arrays
   const ages = Array.from({ length: 83 }, (_, i) => (i + 18).toString());
   const nationalities = [
@@ -124,16 +162,13 @@ export default function ProfileScreen() {
   ];
 
   const schoolStations = [
-    '早稲田駅', '高田馬場駅', '西早稲田駅', '東新宿駅', '新宿三丁目駅', '新宿御苑前駅',
-    '国立競技場駅', '外苑前駅', '青山一丁目駅', '表参道駅', '明治神宮前駅', '原宿駅',
-    '代々木駅', '代々木公園駅', '千駄ヶ谷駅', '北参道駅', '参宮橋駅', '代々木上原駅',
-    '東北沢駅', '下北沢駅', '梅ヶ丘駅', '豪徳寺駅', '経堂駅', '千歳船橋駅',
-    '祖師ヶ谷大蔵駅', '成城学園前駅', '喜多見駅', '和泉多摩川駅', '登戸駅', '向ヶ丘遊園駅',
-    '生田駅', '読売ランド前駅', '鶴川駅', '玉川学園前駅', '町田駅', '淵野辺駅',
-    '中央大学駅', '東八王子駅', '八王子駅', '北八王子駅', '京王八王子駅', '高尾駅',
-    '高尾山口駅', '高尾山駅', '立川駅', '国分寺駅', '国立駅', '西国分寺駅',
-    '東小金井駅', '武蔵小金井駅', '西武新宿駅', '高田馬場駅', '新宿駅', '西新宿駅',
-    '中野駅', '東中野駅', '大久保駅', '新大久保駅', '新宿西口駅', '新宿南口駅'
+    '早稲田駅', '西早稲田駅', '東新宿駅', '新宿三丁目駅',
+    '国立競技場駅', '外苑前駅', '青山一丁目駅',
+    '東北沢駅', '立川駅', '国分寺駅', '国立駅', '西国分寺駅',
+    '東小金井駅', '武蔵小金井駅', '西武新宿駅', '西新宿駅',
+    '中野駅', '東中野駅', '大久保駅', '新大久保駅', '新宿西口駅', '新宿南口駅',
+    '慶應義塾大学駅', '早稲田大学駅', '明治大学駅', '青山学院大学駅', '上智大学駅',
+    '東京大学駅', '一橋大学駅', '東京工業大学駅', 'お茶の水女子大学駅', '東京外国語大学駅'
   ];
 
   // District data arrays
@@ -770,18 +805,6 @@ export default function ProfileScreen() {
              </View>
            </TouchableOpacity>
            
-           {/* Test button for debugging */}
-           <TouchableOpacity 
-             style={[styles.saveButton, { backgroundColor: '#ff6b6b', marginTop: 10 }]} 
-             onPress={() => {
-               console.log('Test navigation button pressed');
-               router.push('/profile-summary');
-             }}
-           >
-             <View style={styles.saveButtonContent}>
-               <Text style={styles.saveButtonText}>テスト</Text>
-             </View>
-           </TouchableOpacity>
         </View>
       </View>
 

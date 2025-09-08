@@ -41,7 +41,7 @@ export function DropdownModal({
         
         <FlatList
           data={options}
-          keyExtractor={(item) => item}
+          keyExtractor={(item, index) => `${item}-${index}`}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={[

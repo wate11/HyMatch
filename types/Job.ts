@@ -1,6 +1,7 @@
 export interface Job {
   id: string;
   title: string;
+  company: string;
   type: string;
   salary: string;
   japaneseLevel: string;

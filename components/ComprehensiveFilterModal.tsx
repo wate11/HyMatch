@@ -8,6 +8,7 @@ import { WorkImportanceModal } from './WorkImportanceModal';
 import EmploymentPeriodModal from './EmploymentPeriodModal';
 import EmploymentTypeModal from './EmploymentTypeModal';
 import { useRouter } from 'expo-router';
+import { useJobs } from '@/contexts/JobContext';
 
 
 interface ComprehensiveFilterModalProps {
@@ -17,6 +18,7 @@ interface ComprehensiveFilterModalProps {
 
 export function ComprehensiveFilterModal({ visible, onClose }: ComprehensiveFilterModalProps) {
   const router = useRouter();
+  const { sortJobs, filterByJapaneseLevel } = useJobs();
   const [selectedSort, setSelectedSort] = useState<string>('salary');
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [selectedCommuteOptions, setSelectedCommuteOptions] = useState<string[]>([]);
@@ -27,6 +29,34 @@ export function ComprehensiveFilterModal({ visible, onClose }: ComprehensiveFilt
   const [isEmploymentPeriodModalVisible, setIsEmploymentPeriodModalVisible] = useState(false);
   const [isEmploymentTypeModalVisible, setIsEmploymentTypeModalVisible] = useState(false);
   const [isJapaneseLevelModalVisible, setIsJapaneseLevelModalVisible] = useState(false);
+  
+  // Sort direction states
+  const [sortDirections, setSortDirections] = useState<{[key: string]: 'asc' | 'desc' | null}>({});
+
+  // Sort functions
+  const handleSortUp = (key: string) => {
+    const newDirection = sortDirections[key] === 'desc' ? null : 'desc';
+    setSortDirections(prev => ({
+      ...prev,
+      [key]: newDirection
+    }));
+    
+    if (newDirection === 'desc') {
+      sortJobs(key, 'desc'); // High to low (eng balanddan boshlab)
+    }
+  };
+
+  const handleSortDown = (key: string) => {
+    const newDirection = sortDirections[key] === 'asc' ? null : 'asc';
+    setSortDirections(prev => ({
+      ...prev,
+      [key]: newDirection
+    }));
+    
+    if (newDirection === 'asc') {
+      sortJobs(key, 'asc'); // Low to high (eng pastdan boshlab)
+    }
+  };
 
 
   const sortOptions = [
@@ -46,10 +76,9 @@ export function ComprehensiveFilterModal({ visible, onClose }: ComprehensiveFilt
   ];
 
   const handleSortSelect = (key: string) => {
+    setSelectedSort(key);
     if (key === 'salary') {
       setIsSalaryTypeModalVisible(true);
-    } else {
-      setSelectedSort(key);
     }
   };
 
@@ -124,8 +153,11 @@ export function ComprehensiveFilterModal({ visible, onClose }: ComprehensiveFilt
 
   const handleJapaneseLevelSelect = (selectedLevel: string) => {
     setSelectedJapaneseLevel(selectedLevel);
-    console.log('Selected Japanese level:', selectedLevel);
-    // Bu yerda tanlangan yapon tili darajasini saqlash mumkin
+    // Filter jobs to show only the selected Japanese level
+    filterByJapaneseLevel(selectedLevel);
+    // Close modal
+    setIsJapaneseLevelModalVisible(false);
+    console.log('Filtered to show only Japanese level:', selectedLevel);
   };
 
 
@@ -216,8 +248,37 @@ export function ComprehensiveFilterModal({ visible, onClose }: ComprehensiveFilt
                       <Text style={styles.optionText}>{option.label}</Text>
                     </View>
                     <View style={styles.reorderIcons}>
-                      <Icon name="chevron-up" size={16} color={colors.gray[400]} />
-                      <Icon name="chevron-down" size={16} color={colors.gray[400]} />
+                      <View style={styles.chevronStack}>
+                        <TouchableOpacity 
+                          onPress={() => handleSortUp(option.key)}
+                          activeOpacity={0.7}
+                        >
+                          <Image 
+                            source={require('@/assets/images/soort.png')} 
+                            style={{ 
+                              width: 30, 
+                              height: 18, 
+                              transform: [{ scaleY: -1 }],
+                              tintColor: sortDirections[option.key] === 'desc' ? '#c75f0c' : '#ffffff'
+                            }}
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                          onPress={() => handleSortDown(option.key)}
+                          activeOpacity={0.7}
+                        >
+                          <Image 
+                            source={require('@/assets/images/soort.png')} 
+                            style={{ 
+                              width: 30, 
+                              height: 18,
+                              tintColor: sortDirections[option.key] === 'asc' ? '#c75f0c' : '#ffffff'
+                            }}
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -544,7 +605,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#F59E0B',
+    backgroundColor: '#007AFF',
   },
   optionIcon: {
     width: 32,
@@ -562,6 +623,11 @@ const styles = StyleSheet.create({
   },
   reorderIcons: {
     alignItems: 'center',
+  },
+  chevronStack: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   divider: {
     height: 1,

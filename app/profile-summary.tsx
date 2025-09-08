@@ -26,7 +26,7 @@ export default function ProfileSummaryScreen() {
   console.log('Profile Summary - Parsed data:', profileData);
 
   const handleBackToHome = () => {
-    router.push('/');
+    router.replace('/(tabs)');
   };
 
   // Show fallback if no data

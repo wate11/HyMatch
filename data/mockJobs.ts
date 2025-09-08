@@ -4,6 +4,7 @@ export const mockJobs: Job[] = [
   {
     id: '1',
     title: '【Warehouse】Light Packaging Work',
+    company: '東京物流株式会社',
     type: 'warehouse',
     salary: '¥1,200–¥2,200',
     japaneseLevel: 'N4',
@@ -15,6 +16,7 @@ export const mockJobs: Job[] = [
   {
     id: '2',
     title: '【Restaurant】Kitchen Assistant',
+    company: '桜レストラングループ',
     type: 'cooking',
     salary: '¥1,400–¥2,000',
     japaneseLevel: 'N3',
@@ -26,6 +28,7 @@ export const mockJobs: Job[] = [
   {
     id: '3',
     title: '【Delivery】Food Delivery Rider',
+    company: 'クイックイーツ配送',
     type: 'delivery',
     salary: '¥1,600–¥2,800',
     japaneseLevel: 'N5',
@@ -37,9 +40,10 @@ export const mockJobs: Job[] = [
   {
     id: '4',
     title: '【Office】Data Entry Specialist',
+    company: 'データテックソリューションズ',
     type: 'office',
     salary: '¥1,300–¥1,800',
-    japaneseLevel: 'N2',
+    japaneseLevel: 'N1',
     commuteTime: '30 minutes',
     location: 'Ginza, Tokyo',
     workDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -48,6 +52,7 @@ export const mockJobs: Job[] = [
   {
     id: '5',
     title: '【Retail】Electronics Store Assistant',
+    company: 'テックワールド電器',
     type: 'retail',
     salary: '¥1,100–¥1,700',
     japaneseLevel: 'N3',
@@ -59,6 +64,7 @@ export const mockJobs: Job[] = [
   {
     id: '6',
     title: '【Cleaning】Hotel Housekeeping',
+    company: 'グランド東京ホテル',
     type: 'cleaning',
     salary: '¥1,500–¥2,100',
     japaneseLevel: 'N4',
@@ -70,6 +76,7 @@ export const mockJobs: Job[] = [
   {
     id: '7',
     title: '【Construction】Site Helper',
+    company: 'ビルドライト建設',
     type: 'construction',
     salary: '¥2,200–¥3,200',
     japaneseLevel: 'N4',
@@ -81,9 +88,10 @@ export const mockJobs: Job[] = [
   {
     id: '8',
     title: '【Restaurant】Server & Cashier',
+    company: '恵比寿ダイニング株式会社',
     type: 'restaurant',
     salary: '¥1,300–¥2,200',
-    japaneseLevel: 'N2',
+    japaneseLevel: 'N1',
     commuteTime: '12 minutes',
     location: 'Ebisu, Tokyo',
     workDays: ['Thu', 'Fri', 'Sat', 'Sun'],
@@ -92,6 +100,7 @@ export const mockJobs: Job[] = [
   {
     id: '9',
     title: '【Warehouse】Inventory Management',
+    company: 'メトロストレージシステムズ',
     type: 'warehouse',
     salary: '¥1,350–¥2,000',
     japaneseLevel: 'N3',
@@ -103,6 +112,7 @@ export const mockJobs: Job[] = [
   {
     id: '10',
     title: '【Delivery】Package Courier',
+    company: 'エクスプレス配送ジャパン',
     type: 'delivery',
     salary: '¥1,700–¥2,600',
     japaneseLevel: 'N5',
@@ -114,6 +124,7 @@ export const mockJobs: Job[] = [
   {
     id: '11',
     title: '【Cooking】Bakery Assistant',
+    company: 'スイートドリームベーカリー',
     type: 'cooking',
     salary: '¥1,250–¥1,900',
     japaneseLevel: 'N4',
@@ -125,9 +136,10 @@ export const mockJobs: Job[] = [
   {
     id: '12',
     title: '【Office】Reception Desk',
+    company: '丸の内ビジネスセンター',
     type: 'office',
     salary: '¥1,400–¥1,900',
-    japaneseLevel: 'N2',
+    japaneseLevel: 'N1',
     commuteTime: '32 minutes',
     location: 'Marunouchi, Tokyo',
     workDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -136,6 +148,7 @@ export const mockJobs: Job[] = [
   {
     id: '13',
     title: '【Retail】Convenience Store Clerk',
+    company: 'ファミリーマート新橋店',
     type: 'retail',
     salary: '¥1,050–¥1,550',
     japaneseLevel: 'N4',
@@ -147,6 +160,7 @@ export const mockJobs: Job[] = [
   {
     id: '14',
     title: '【Cleaning】Office Building Maintenance',
+    company: 'クリーンプロサービス',
     type: 'cleaning',
     salary: '¥1,400–¥1,950',
     japaneseLevel: 'N5',
@@ -158,6 +172,7 @@ export const mockJobs: Job[] = [
   {
     id: '15',
     title: '【Construction】Interior Finishing',
+    company: 'インテリアデザインプラス',
     type: 'construction',
     salary: '¥2,000–¥2,800',
     japaneseLevel: 'N3',
@@ -169,6 +184,7 @@ export const mockJobs: Job[] = [
   {
     id: '16',
     title: '【Restaurant】Sushi Kitchen Helper',
+    company: '築地寿司マスター',
     type: 'restaurant',
     salary: '¥1,500–¥2,300',
     japaneseLevel: 'N3',
@@ -181,6 +197,7 @@ export const mockJobs: Job[] = [
   {
     id: '18',
     title: '【Delivery】Grocery Delivery Driver',
+    company: 'フレッシュマーケット配送',
     type: 'delivery',
     salary: '¥1,550–¥2,400',
     japaneseLevel: 'N5',
@@ -192,6 +209,7 @@ export const mockJobs: Job[] = [
   {
     id: '19',
     title: '【Cooking】Ramen Shop Cook',
+    company: 'ラーメンキング渋谷',
     type: 'cooking',
     salary: '¥1,350–¥2,100',
     japaneseLevel: 'N3',
@@ -203,6 +221,7 @@ export const mockJobs: Job[] = [
   {
     id: '20',
     title: '【Office】Customer Support',
+    company: 'サポートソリューションズ株式会社',
     type: 'office',
     salary: '¥1,450–¥2,000',
     japaneseLevel: 'N2',
